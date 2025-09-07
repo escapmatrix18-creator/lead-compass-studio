@@ -1,0 +1,119 @@
+// Prisma schema for Blackbox AI — Campaign Orchestrator
+// Connected to Supabase Postgres DB
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  campaigns   Campaign[]
+  leads       Lead[]
+  senders     Sender[]
+  auditLogs   AuditLog[]
+  integrations Integration[]
+
+  @@map("users")
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  email       String
+  firstName   String?
+  lastName    String?
+  company     String?
+  country     String?
+  city        String?
+  industry    String?
+  consent     Boolean  @default(false) // Compliance: opt-in required
+  consentDate DateTime?
+  source      String   // e.g., "upload", "integration"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  userId    String
+  user      User      @relation(fields: [userId], references: [id])
+  campaigns Campaign[]
+
+  @@map("leads")
+}
+
+model Campaign {
+  id            String   @id @default(cuid())
+  name          String
+  description   String?
+  status        String   @default("draft") // draft, active, paused, completed
+  country       String?
+  city          String?
+  industry      String?
+  senderPoolId  String?
+  throttling    Json?    // e.g., { "rate": 10, "interval": "minute" }
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Relations
+  userId   String
+  user     User     @relation(fields: [userId], references: [id])
+  leads    Lead[]
+  sender   Sender?  @relation(fields: [senderPoolId], references: [id])
+
+  @@map("campaigns")
+}
+
+model Sender {
+  id          String   @id @default(cuid())
+  provider    String   // e.g., "gmail", "sendgrid", "mailgun"
+  email       String
+  name        String?
+  quota       Int      @default(100) // Daily send quota
+  usedQuota   Int      @default(0)
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  userId     String
+  user       User       @relation(fields: [userId], references: [id])
+  campaigns  Campaign[]
+
+  @@map("senders")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  action    String   // e.g., "send", "compliance_check", "campaign_create"
+  details   Json?
+  userId    String?
+  createdAt DateTime @default(now())
+
+  // Relations
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model Integration {
+  id          String   @id @default(cuid())
+  provider    String   // e.g., "clearbit", "hunter", "linkedin"
+  config      Json     // API keys, settings
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@map("integrations")
+}
