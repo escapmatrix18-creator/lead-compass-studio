@@ -1,73 +1,207 @@
-# Welcome to your Lovable project
+# Campaign Studio - Lead Marketing Platform
 
-## Project info
+A production-grade, compliance-first lead campaign management platform built with React, TypeScript, and modern web technologies.
 
-**URL**: https://lovable.dev/projects/ef614631-3917-4509-98fd-a9abc620299e
+## 🚀 Features
 
-## How can I edit this code?
+- **Dashboard**: Real-time campaign analytics and KPI monitoring
+- **Campaign Builder**: Visual campaign creation with targeting and templates
+- **Lead Manager**: Advanced lead database with filtering and verification
+- **Compliance Center**: Ethics-first marketing with built-in compliance tools
+- **Integrations**: Connect to email providers and data sources
+- **Sending Monitor**: Live campaign sending with performance tracking
 
-There are several ways of editing your application.
+## 🛠 Tech Stack
 
-**Use Lovable**
+- **Frontend**: React 18 + TypeScript + Vite
+- **Styling**: TailwindCSS + Custom Design System
+- **Components**: shadcn/ui + Custom Components
+- **Animation**: Framer Motion
+- **State**: Zustand
+- **Routing**: React Router v6
+- **Data Fetching**: TanStack Query
+- **Internationalization**: react-i18next (English + Hinglish)
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ef614631-3917-4509-98fd-a9abc620299e) and start prompting.
+## 🏗 Architecture
 
-Changes made via Lovable will be committed automatically to this repo.
+### Design System
+- Professional blue-purple gradient theme
+- HSL-based color system with semantic tokens
+- Responsive components with consistent spacing
+- Dark/light mode support
 
-**Use your preferred IDE**
+### Key Components
+- `AppLayout`: Main application shell with sidebar and header
+- `CampaignBuilder`: Multi-step campaign creation wizard
+- `LeadManager`: Virtualized table with advanced filtering
+- `ComplianceCenter`: Ethics and legal compliance management
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 📦 Installation
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+```bash
+# Install dependencies
+npm install
 
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Preview production build
+npm run preview
 ```
 
-**Edit a file directly in GitHub**
+## 🔧 Environment Variables
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Create a `.env.local` file:
 
-**Use GitHub Codespaces**
+```env
+VITE_API_BASE_URL=http://localhost:3001/api
+VITE_OAUTH_REDIRECT_URI=http://localhost:5173/auth/callback
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## 🔌 API Integration
 
-## What technologies are used for this project?
+The frontend expects these backend endpoints:
 
-This project is built with:
+### Campaigns
+- `GET /api/campaigns` - List campaigns
+- `POST /api/campaigns` - Create campaign
+- `PUT /api/campaigns/:id` - Update campaign
+- `DELETE /api/campaigns/:id` - Delete campaign
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+### Leads
+- `GET /api/leads` - List leads with filtering
+- `POST /api/leads/import` - Import CSV/Excel leads
+- `POST /api/leads/verify` - Verify email addresses
+- `PUT /api/leads/:id` - Update lead
 
-## How can I deploy this project?
+### Sending
+- `POST /api/send/test` - Send test email
+- `POST /api/send/campaign` - Start campaign sending
+- `GET /api/send/status/:id` - Get sending status
 
-Simply open [Lovable](https://lovable.dev/projects/ef614631-3917-4509-98fd-a9abc620299e) and click on Share -> Publish.
+### Integrations
+- `POST /api/integrations/connect` - Connect email provider
+- `GET /api/integrations` - List connected integrations
+- `POST /api/webhooks` - Configure webhooks
 
-## Can I connect a custom domain to my Lovable project?
+## 🛡 Compliance & Security
 
-Yes, you can!
+### Built-in Compliance Features
+- ✅ Automatic unsubscribe links
+- ✅ Bounce rate monitoring (auto-pause >5%)
+- ✅ Spam complaint tracking
+- ✅ Suppression list management
+- ✅ Double opt-in support
+- ✅ Content filtering
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Security Best Practices
+- OAuth preferred over app passwords
+- Encrypted API key storage
+- Rate limiting UI controls
+- Audit trail logging
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 🚀 Deployment
+
+### Vercel (Recommended)
+```bash
+npm run build
+# Deploy dist folder to Vercel
+```
+
+### Docker
+```dockerfile
+FROM node:18-alpine
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+RUN npm run build
+EXPOSE 3000
+CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
+```
+
+## 📊 Analytics Integration
+
+Mock Service Worker (MSW) is configured for development with sample data:
+
+```javascript
+// Mock API responses
+export const handlers = [
+  rest.get('/api/campaigns', (req, res, ctx) => {
+    return res(ctx.json(mockCampaigns))
+  }),
+  // ... more handlers
+]
+```
+
+## 🎨 Design System
+
+### Color Palette
+```css
+/* Primary Brand */
+--primary: 229 84% 42%;        /* Deep Blue */
+--primary-glow: 229 84% 55%;   /* Bright Blue */
+
+/* Status Colors */
+--success: 142 71% 45%;        /* Green */
+--warning: 45 93% 58%;         /* Yellow */
+--destructive: 0 85% 60%;      /* Red */
+
+/* Gradients */
+--gradient-primary: linear-gradient(135deg, hsl(229 84% 42%), hsl(262 83% 58%));
+```
+
+### Component Variants
+- `campaign-button`: Primary CTA styling
+- `campaign-card`: Elevated card with hover effects
+- `status-success/warning/error`: Semantic status badges
+
+## 🧪 Testing
+
+```bash
+# Run tests
+npm test
+
+# Run Storybook
+npm run storybook
+```
+
+## 📝 Development Guidelines
+
+### Code Standards
+- TypeScript strict mode
+- ESLint + Prettier configuration
+- Conventional commit messages
+- Component-first architecture
+
+### Backend Integration Notes
+- All API calls should include proper error handling
+- Use React Query for caching and background updates
+- Implement optimistic updates for better UX
+- Follow REST conventions for consistency
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit changes (`git commit -m 'Add amazing feature'`)
+4. Push to branch (`git push origin feature/amazing-feature`)
+5. Open Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🆘 Support
+
+For support and questions:
+- Create an issue on GitHub
+- Check the documentation
+- Join our Discord community
+
+---
+
+**Note**: This frontend is designed to work with a backend service. Implement the API endpoints according to the specifications above for full functionality.
