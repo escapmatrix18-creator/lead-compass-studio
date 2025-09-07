@@ -1,207 +1,277 @@
-# Campaign Studio - Lead Marketing Platform
+# Campaign Studio - Lead Campaign & Marketing Platform
 
-A production-grade, compliance-first lead campaign management platform built with React, TypeScript, and modern web technologies.
+A production-grade, compliance-first lead campaign and marketing platform built with React, TypeScript, and modern web technologies.
 
 ## 🚀 Features
 
-- **Dashboard**: Real-time campaign analytics and KPI monitoring
-- **Campaign Builder**: Visual campaign creation with targeting and templates
-- **Lead Manager**: Advanced lead database with filtering and verification
-- **Compliance Center**: Ethics-first marketing with built-in compliance tools
-- **Integrations**: Connect to email providers and data sources
-- **Sending Monitor**: Live campaign sending with performance tracking
+### Core Functionality
+- **Campaign Builder**: Create targeted lead campaigns with advanced filtering
+- **Lead Management**: Import, verify, and manage lead databases with compliance tracking
+- **Multi-Sender Support**: Configure multiple sender identities with rotation strategies
+- **Compliance Center**: Ethics-first approach with automatic unsubscribe, bounce monitoring
+- **Integration Hub**: Connect with Gmail, SendGrid, Mailgun, and API connectors
+- **Real-time Monitoring**: Live campaign tracking with analytics and performance metrics
+
+### Technical Features
+- **Modern Stack**: React 18, TypeScript, Vite, TailwindCSS
+- **State Management**: Zustand for lightweight state management
+- **Data Fetching**: TanStack Query for server state management
+- **UI Components**: Shadcn/ui with custom design system
+- **Animations**: Framer Motion for smooth micro-interactions
+- **Backend Ready**: Supabase integration for authentication and database
+- **Responsive Design**: Mobile-first design with dark/light mode support
 
 ## 🛠 Tech Stack
 
-- **Frontend**: React 18 + TypeScript + Vite
-- **Styling**: TailwindCSS + Custom Design System
-- **Components**: shadcn/ui + Custom Components
-- **Animation**: Framer Motion
-- **State**: Zustand
-- **Routing**: React Router v6
-- **Data Fetching**: TanStack Query
-- **Internationalization**: react-i18next (English + Hinglish)
-
-## 🏗 Architecture
-
-### Design System
-- Professional blue-purple gradient theme
-- HSL-based color system with semantic tokens
-- Responsive components with consistent spacing
-- Dark/light mode support
-
-### Key Components
-- `AppLayout`: Main application shell with sidebar and header
-- `CampaignBuilder`: Multi-step campaign creation wizard
-- `LeadManager`: Virtualized table with advanced filtering
-- `ComplianceCenter`: Ethics and legal compliance management
+- **Frontend**: React 18, TypeScript, Vite
+- **Styling**: TailwindCSS with custom design system
+- **Components**: Shadcn/ui component library
+- **State**: Zustand + TanStack Query
+- **Animations**: Framer Motion
+- **Backend**: Supabase (PostgreSQL, Auth, Storage)
+- **Build**: Vite with TypeScript
+- **Linting**: ESLint + Prettier
 
 ## 📦 Installation
 
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn package manager
+
+### Setup
+1. Clone the repository:
 ```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
+git clone <repository-url>
+cd campaign-studio
 ```
 
-## 🔧 Environment Variables
+2. Install dependencies:
+```bash
+npm install
+```
 
-Create a `.env.local` file:
+3. Set up environment variables:
+```bash
+cp .env.example .env
+```
 
+4. Configure your environment variables:
 ```env
+# API Configuration
 VITE_API_BASE_URL=http://localhost:3001/api
 VITE_OAUTH_REDIRECT_URI=http://localhost:5173/auth/callback
+
+# Supabase Configuration (if using)
+VITE_SUPABASE_URL=your_supabase_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-## 🔌 API Integration
+5. Start the development server:
+```bash
+npm run dev
+```
 
-The frontend expects these backend endpoints:
+## 🚦 Available Scripts
 
-### Campaigns
-- `GET /api/campaigns` - List campaigns
-- `POST /api/campaigns` - Create campaign
-- `PUT /api/campaigns/:id` - Update campaign
-- `DELETE /api/campaigns/:id` - Delete campaign
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+- `npm run type-check` - Run TypeScript checks
 
-### Leads
-- `GET /api/leads` - List leads with filtering
-- `POST /api/leads/import` - Import CSV/Excel leads
-- `POST /api/leads/verify` - Verify email addresses
-- `PUT /api/leads/:id` - Update lead
+## 📁 Project Structure
 
-### Sending
-- `POST /api/send/test` - Send test email
-- `POST /api/send/campaign` - Start campaign sending
-- `GET /api/send/status/:id` - Get sending status
+```
+src/
+├── components/          # Reusable UI components
+│   ├── ui/             # Shadcn/ui components
+│   └── layout/         # Layout components (Header, Sidebar, etc.)
+├── pages/              # Page components
+│   ├── Dashboard.tsx
+│   ├── CampaignBuilder.tsx
+│   ├── LeadManager.tsx
+│   └── ...
+├── hooks/              # Custom React hooks
+│   ├── useAuth.ts
+│   ├── useCampaigns.ts
+│   └── useLeads.ts
+├── lib/                # Utility libraries
+│   ├── api.ts          # API service layer
+│   ├── constants.ts    # App constants
+│   ├── mockData.ts     # Development mock data
+│   └── utils.ts        # Utility functions
+├── store/              # Zustand stores
+│   └── themeStore.ts
+├── integrations/       # Third-party integrations
+│   └── supabase/
+└── assets/            # Static assets
+```
 
-### Integrations
-- `POST /api/integrations/connect` - Connect email provider
-- `GET /api/integrations` - List connected integrations
-- `POST /api/webhooks` - Configure webhooks
+## 🔌 Backend Integration
 
-## 🛡 Compliance & Security
+The frontend is designed to work with any backend that implements the expected API contract:
 
-### Built-in Compliance Features
-- ✅ Automatic unsubscribe links
-- ✅ Bounce rate monitoring (auto-pause >5%)
+### Required API Endpoints
+
+```typescript
+// Campaign Management
+GET    /api/campaigns           - List campaigns
+POST   /api/campaigns           - Create campaign
+GET    /api/campaigns/:id       - Get campaign
+PUT    /api/campaigns/:id       - Update campaign
+DELETE /api/campaigns/:id       - Delete campaign
+
+// Lead Management  
+GET    /api/leads              - List leads (with filters)
+POST   /api/leads/import       - Import leads from CSV/Excel
+POST   /api/leads/verify       - Verify lead emails
+POST   /api/leads/export       - Export leads
+
+// Sending & Testing
+POST   /api/send/test          - Send test email
+POST   /api/campaigns/:id/send - Launch campaign
+GET    /api/campaigns/:id/stats - Get campaign analytics
+
+// Integrations
+POST   /api/integrations/connect - Connect email provider
+GET    /api/integrations         - List connected integrations
+
+// Health Check
+GET    /api/health              - API health status
+```
+
+### Data Models
+
+See `src/lib/api.ts` for complete TypeScript interfaces:
+
+- `Campaign` - Campaign configuration and metadata
+- `Lead` - Lead contact information and verification status
+- `ApiResponse<T>` - Standardized API response wrapper
+
+## 🔐 Authentication & Security
+
+### Supabase Auth (Recommended)
+The app includes Supabase authentication setup:
+
+```typescript
+// Auth hooks available
+import { useAuth } from '@/hooks/useAuth';
+
+const { user, signIn, signUp, signOut, isAuthenticated } = useAuth();
+```
+
+### Security Features
+- **CSRF Protection**: Built-in request validation
+- **Compliance Monitoring**: Automatic bounce/complaint tracking  
+- **Data Encryption**: Sensitive data encrypted at rest
+- **OAuth Preferred**: Secure authentication over app passwords
+- **Audit Logging**: All actions logged for compliance
+
+## 📊 Compliance & Ethics
+
+Campaign Studio is built with ethics-first marketing principles:
+
+### Required Compliance Features
+- ✅ Automatic unsubscribe links in all emails
+- ✅ Bounce rate monitoring (auto-pause at 5%+)
 - ✅ Spam complaint tracking
 - ✅ Suppression list management
 - ✅ Double opt-in support
-- ✅ Content filtering
+- ✅ GDPR/CAN-SPAM compliance tools
 
-### Security Best Practices
-- OAuth preferred over app passwords
-- Encrypted API key storage
-- Rate limiting UI controls
-- Audit trail logging
-
-## 🚀 Deployment
-
-### Vercel (Recommended)
-```bash
-npm run build
-# Deploy dist folder to Vercel
-```
-
-### Docker
-```dockerfile
-FROM node:18-alpine
-WORKDIR /app
-COPY package*.json ./
-RUN npm ci
-COPY . .
-RUN npm run build
-EXPOSE 3000
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0"]
-```
-
-## 📊 Analytics Integration
-
-Mock Service Worker (MSW) is configured for development with sample data:
-
-```javascript
-// Mock API responses
-export const handlers = [
-  rest.get('/api/campaigns', (req, res, ctx) => {
-    return res(ctx.json(mockCampaigns))
-  }),
-  // ... more handlers
-]
-```
+### Legal Considerations
+- Always obtain proper consent before sending emails
+- Respect unsubscribe requests immediately
+- Use crawler/scraping features only with permission
+- Monitor bounce and complaint rates regularly
+- Maintain accurate suppression lists
+- Consult legal counsel for jurisdiction-specific requirements
 
 ## 🎨 Design System
 
-### Color Palette
+The app uses a comprehensive design system built on CSS custom properties:
+
+### Color Tokens
 ```css
 /* Primary Brand */
---primary: 229 84% 42%;        /* Deep Blue */
---primary-glow: 229 84% 55%;   /* Bright Blue */
+--primary: 224 71% 50%;
+--primary-variant: 248 100% 70%;
 
 /* Status Colors */
---success: 142 71% 45%;        /* Green */
---warning: 45 93% 58%;         /* Yellow */
---destructive: 0 85% 60%;      /* Red */
+--success: 142 76% 36%;
+--warning: 47 96% 53%;
+--destructive: 0 84% 60%;
 
 /* Gradients */
---gradient-primary: linear-gradient(135deg, hsl(229 84% 42%), hsl(262 83% 58%));
+--gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-variant)));
+--gradient-surface: linear-gradient(135deg, hsl(var(--background)), hsl(var(--muted)));
 ```
 
-### Component Variants
-- `campaign-button`: Primary CTA styling
-- `campaign-card`: Elevated card with hover effects
-- `status-success/warning/error`: Semantic status badges
+### Component Styling
+All components use semantic tokens from the design system. See `src/index.css` and `tailwind.config.ts` for the complete system.
 
-## 🧪 Testing
+## 🧪 Development Features
 
+### Mock Data
+The app includes comprehensive mock data for development:
+- Sample campaigns, leads, and analytics in `src/lib/mockData.ts`
+- Simulated API responses for offline development
+- Error state simulation for robust testing
+
+### Custom Hooks
+- `useCampaigns()` - Campaign CRUD operations
+- `useLeads()` - Lead management with filtering
+- `useAuth()` - Authentication state management
+- Error boundaries for production stability
+
+## 🚀 Deployment
+
+### Build for Production
 ```bash
-# Run tests
-npm test
-
-# Run Storybook
-npm run storybook
+npm run build
 ```
 
-## 📝 Development Guidelines
+### Environment Setup
+Ensure production environment variables are configured:
+- `VITE_API_BASE_URL` - Your production API URL
+- `VITE_SUPABASE_URL` - Supabase project URL (if using)
+- `VITE_SUPABASE_ANON_KEY` - Supabase anonymous key (if using)
 
-### Code Standards
-- TypeScript strict mode
-- ESLint + Prettier configuration
-- Conventional commit messages
-- Component-first architecture
+### Deployment Platforms
+The app can be deployed to any static hosting service:
+- **Vercel** (Recommended for React apps)
+- **Netlify**
+- **AWS CloudFront + S3**
+- **Google Cloud Storage**
 
-### Backend Integration Notes
-- All API calls should include proper error handling
-- Use React Query for caching and background updates
-- Implement optimistic updates for better UX
-- Follow REST conventions for consistency
+## 🔧 Development
 
-## 🤝 Contributing
+### Adding New Features
+1. Create components in `src/components/`
+2. Add custom hooks in `src/hooks/`
+3. Define API contracts in `src/lib/api.ts`
+4. Update constants in `src/lib/constants.ts`
+5. Add mock data in `src/lib/mockData.ts`
+6. Follow the existing component patterns
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push to branch (`git push origin feature/amazing-feature`)
-5. Open Pull Request
+### Code Quality
+- TypeScript strict mode enabled
+- ESLint + Prettier configured
+- Component prop validation
+- Error boundaries for production stability
+
+## 📞 Support
+
+For questions or issues:
+1. Check the existing documentation
+2. Review the TypeScript interfaces in `src/lib/api.ts`
+3. Examine the mock data for expected formats
+4. Consult the compliance documentation
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🆘 Support
-
-For support and questions:
-- Create an issue on GitHub
-- Check the documentation
-- Join our Discord community
+This project is proprietary. All rights reserved.
 
 ---
 
-**Note**: This frontend is designed to work with a backend service. Implement the API endpoints according to the specifications above for full functionality.
+**⚠️ Important**: This platform is designed for ethical B2B marketing only. Users are responsible for compliance with all applicable laws and regulations including GDPR, CAN-SPAM, and local data protection laws.
