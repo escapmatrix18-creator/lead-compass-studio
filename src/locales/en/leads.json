@@ -1,0 +1,68 @@
+{
+  "title": "Lead Management",
+  "import": "Import Leads",
+  "export": "Export Leads",
+  "verify": "Verify Emails",
+  "list": {
+    "title": "Your Leads",
+    "search_placeholder": "Search leads...",
+    "filter_by_status": "Filter by Status",
+    "filter_by_source": "Filter by Source",
+    "columns": {
+      "company": "Company",
+      "contact": "Contact",
+      "email": "Email",
+      "role": "Role",
+      "city": "City",
+      "country": "Country",
+      "status": "Status",
+      "source": "Source",
+      "consent": "Consent",
+      "created": "Created",
+      "actions": "Actions"
+    }
+  },
+  "import": {
+    "title": "Import Leads",
+    "drag_drop": "Drag and drop your CSV or Excel file here",
+    "or": "or",
+    "browse": "Browse Files",
+    "supported_formats": "Supported formats: CSV, XLS, XLSX",
+    "max_file_size": "Maximum file size: {{size}}MB",
+    "preview": {
+      "title": "Import Preview",
+      "showing_rows": "Showing first {{count}} rows",
+      "total_rows": "Total rows: {{count}}",
+      "mapping": "Column Mapping",
+      "required_fields": "Required Fields",
+      "map_columns": "Map your CSV columns to lead fields"
+    },
+    "validation": {
+      "invalid_emails": "Invalid emails found",
+      "missing_required": "Missing required fields",
+      "duplicate_entries": "Duplicate entries found"
+    },
+    "results": {
+      "success": "Successfully imported {{count}} leads",
+      "partial": "Imported {{success}} leads, {{failed}} failed",
+      "failed": "Import failed: {{error}}"
+    }
+  },
+  "verification": {
+    "title": "Email Verification",
+    "verify_selected": "Verify Selected",
+    "verify_all": "Verify All",
+    "status": {
+      "pending": "Verification Pending",
+      "valid": "Valid",
+      "invalid": "Invalid",
+      "risky": "Risky"
+    }
+  },
+  "consent": {
+    "granted": "Granted",
+    "pending": "Pending",
+    "denied": "Denied",
+    "required_notice": "Consent is required before sending emails to leads"
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "title": "Dashboard",
+  "welcome": "Campaign Studio में welcome!",
+  "overview": "Campaign Overview",
+  "kpis": {
+    "total_campaigns": "Total Campaigns",
+    "active_campaigns": "Active Campaigns", 
+    "total_leads": "Total Leads",
+    "verified_leads": "Verified Leads",
+    "emails_sent": "Emails भेजे गए",
+    "open_rate": "Open Rate",
+    "click_rate": "Click Rate",
+    "bounce_rate": "Bounce Rate"
+  },
+  "recent_activity": {
+    "title": "Recent Activity",
+    "no_activity": "कोई recent activity नहीं"
+  },
+  "quick_actions": {
+    "title": "Quick Actions",
+    "create_campaign": "Campaign बनाएं",
+    "import_leads": "Leads Import करें",
+    "view_analytics": "Analytics देखें",
+    "performance_report": "Performance Report"
+  },
+  "charts": {
+    "campaign_performance": "Campaign Performance",
+    "lead_sources": "Lead Sources",
+    "email_engagement": "Email Engagement"
+  }
+}

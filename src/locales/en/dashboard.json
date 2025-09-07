@@ -1,0 +1,31 @@
+{
+  "title": "Dashboard",
+  "welcome": "Welcome to Campaign Studio",
+  "overview": "Campaign Overview",
+  "kpis": {
+    "total_campaigns": "Total Campaigns",
+    "active_campaigns": "Active Campaigns", 
+    "total_leads": "Total Leads",
+    "verified_leads": "Verified Leads",
+    "emails_sent": "Emails Sent",
+    "open_rate": "Open Rate",
+    "click_rate": "Click Rate",
+    "bounce_rate": "Bounce Rate"
+  },
+  "recent_activity": {
+    "title": "Recent Activity",
+    "no_activity": "No recent activity"
+  },
+  "quick_actions": {
+    "title": "Quick Actions",
+    "create_campaign": "Create Campaign",
+    "import_leads": "Import Leads",
+    "view_analytics": "View Analytics",
+    "performance_report": "Performance Report"
+  },
+  "charts": {
+    "campaign_performance": "Campaign Performance",
+    "lead_sources": "Lead Sources",
+    "email_engagement": "Email Engagement"
+  }
+}

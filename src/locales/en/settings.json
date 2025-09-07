@@ -1,0 +1,57 @@
+{
+  "title": "Settings",
+  "sections": {
+    "general": "General",
+    "notifications": "Notifications",
+    "sending": "Sending",
+    "compliance": "Compliance",
+    "integrations": "Integrations",
+    "security": "Security",
+    "appearance": "Appearance"
+  },
+  "general": {
+    "language": "Language",
+    "timezone": "Timezone",
+    "date_format": "Date Format",
+    "number_format": "Number Format"
+  },
+  "notifications": {
+    "email_notifications": "Email Notifications",
+    "push_notifications": "Push Notifications",
+    "campaign_updates": "Campaign Updates",
+    "lead_updates": "Lead Updates",
+    "system_updates": "System Updates"
+  },
+  "sending": {
+    "daily_limit": "Daily Sending Limit",
+    "throttle": "Throttle (seconds between emails)",
+    "auto_stop": "Auto-stop on high bounce rate",
+    "retry_failed": "Retry failed sends",
+    "rate_limit_notice": "Be aware of your email provider's sending limits"
+  },
+  "compliance": {
+    "gdpr_compliance": "GDPR Compliance",
+    "can_spam_compliance": "CAN-SPAM Compliance",
+    "suppression_list": "Maintain Suppression List",
+    "double_opt_in": "Require Double Opt-in",
+    "auto_unsubscribe": "Automatic Unsubscribe Handling"
+  },
+  "appearance": {
+    "theme": "Theme",
+    "themes": {
+      "light": "Light",
+      "dark": "Dark",
+      "system": "System"
+    },
+    "color_scheme": "Color Scheme",
+    "compact_mode": "Compact Mode",
+    "animations": "Enable Animations"
+  },
+  "security": {
+    "two_factor": "Two-Factor Authentication",
+    "session_timeout": "Session Timeout",
+    "login_alerts": "Login Alerts",
+    "data_export": "Data Export",
+    "account_deletion": "Account Deletion"
+  }
+}

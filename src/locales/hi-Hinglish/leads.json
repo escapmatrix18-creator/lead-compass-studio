@@ -1,0 +1,68 @@
+{
+  "title": "Lead Management",
+  "import": "Leads Import करें",
+  "export": "Leads Export करें",
+  "verify": "Emails Verify करें",
+  "list": {
+    "title": "आपके Leads",
+    "search_placeholder": "Leads search करें...",
+    "filter_by_status": "Status के हिसाब से filter करें",
+    "filter_by_source": "Source के हिसाब से filter करें",
+    "columns": {
+      "company": "Company",
+      "contact": "Contact",
+      "email": "Email",
+      "role": "Role",
+      "city": "City",
+      "country": "Country",
+      "status": "Status",
+      "source": "Source",
+      "consent": "Consent",
+      "created": "बनाया गया",
+      "actions": "Actions"
+    }
+  },
+  "import": {
+    "title": "Leads Import करें",
+    "drag_drop": "अपनी CSV या Excel file यहाँ drag और drop करें",
+    "or": "या",
+    "browse": "Files Browse करें",
+    "supported_formats": "Supported formats: CSV, XLS, XLSX",
+    "max_file_size": "Maximum file size: {{size}}MB",
+    "preview": {
+      "title": "Import Preview",
+      "showing_rows": "पहली {{count}} rows दिखा रहे हैं",
+      "total_rows": "Total rows: {{count}}",
+      "mapping": "Column Mapping",
+      "required_fields": "Required Fields",
+      "map_columns": "अपने CSV columns को lead fields के साथ map करें"
+    },
+    "validation": {
+      "invalid_emails": "Invalid emails मिले",
+      "missing_required": "Required fields missing हैं",
+      "duplicate_entries": "Duplicate entries मिली"
+    },
+    "results": {
+      "success": "Successfully {{count}} leads import हो गए",
+      "partial": "{{success}} leads import हुए, {{failed}} fail हुए",
+      "failed": "Import fail हो गया: {{error}}"
+    }
+  },
+  "verification": {
+    "title": "Email Verification",
+    "verify_selected": "Selected को Verify करें",
+    "verify_all": "सब को Verify करें",
+    "status": {
+      "pending": "Verification Pending",
+      "valid": "Valid",
+      "invalid": "Invalid",
+      "risky": "Risky"
+    }
+  },
+  "consent": {
+    "granted": "मिल गया",
+    "pending": "Pending",
+    "denied": "Denied",
+    "required_notice": "Leads को emails send करने से पहले consent required है"
+  }
+}

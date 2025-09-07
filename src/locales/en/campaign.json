@@ -1,0 +1,73 @@
+{
+  "title": "Campaigns",
+  "create": "Create Campaign",
+  "edit": "Edit Campaign", 
+  "builder": {
+    "title": "Campaign Builder",
+    "steps": {
+      "targeting": "Targeting",
+      "template": "Template",
+      "schedule": "Schedule",
+      "compliance": "Compliance",
+      "review": "Review"
+    },
+    "targeting": {
+      "title": "Define Your Audience",
+      "campaign_name": "Campaign Name",
+      "country": "Country",
+      "city": "City",
+      "industry": "Industry",
+      "company_size": "Company Size",
+      "description": "Set the targeting criteria for your campaign"
+    },
+    "template": {
+      "title": "Email Template",
+      "subject": "Subject Line",
+      "content": "Email Content",
+      "tokens": "Available Tokens",
+      "preview": "Template Preview",
+      "live_preview": "Live Preview",
+      "template_editor": "Template Editor",
+      "subject_length": "Subject length: {{count}} characters",
+      "unknown_token_warning": "Unknown token: {{token}}"
+    },
+    "schedule": {
+      "title": "Schedule Campaign",
+      "send_immediately": "Send Immediately",
+      "schedule_later": "Schedule for Later",
+      "date": "Date",
+      "time": "Time",
+      "timezone": "Timezone"
+    },
+    "compliance": {
+      "title": "Compliance Check",
+      "gdpr_compliant": "GDPR Compliant",
+      "can_spam_compliant": "CAN-SPAM Compliant",
+      "unsubscribe_link": "Unsubscribe Link",
+      "consent_verified": "Consent Verified",
+      "suppression_list": "Suppression List Applied"
+    }
+  },
+  "list": {
+    "title": "Your Campaigns",
+    "search_placeholder": "Search campaigns...",
+    "filter_by_status": "Filter by Status",
+    "columns": {
+      "name": "Name",
+      "status": "Status",
+      "leads": "Leads",
+      "sent": "Sent",
+      "open_rate": "Open Rate",
+      "click_rate": "Click Rate",
+      "created": "Created",
+      "actions": "Actions"
+    }
+  },
+  "preview": {
+    "title": "Campaign Preview",
+    "from": "From",
+    "to": "To",
+    "subject": "Subject",
+    "preview_text": "Preview Text"
+  }
+}
