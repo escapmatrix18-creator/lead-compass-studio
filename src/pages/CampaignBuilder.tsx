@@ -99,7 +99,7 @@ const CampaignBuilder = () => {
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="campaign-name">{t("campaignName")}</Label>
+                      <Label htmlFor="campaign-name">Campaign Name</Label>
                       <Input
                         id="campaign-name"
                         placeholder="e.g., Mumbai Tech Startups Q1"
@@ -109,7 +109,7 @@ const CampaignBuilder = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="country">{t("targetCountry")}</Label>
+                      <Label htmlFor="country">Target Country</Label>
                       <Select value={campaignData.country} onValueChange={(value) => setCampaignData({...campaignData, country: value})}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select country" />
@@ -125,7 +125,7 @@ const CampaignBuilder = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="city">{t("targetCity")}</Label>
+                      <Label htmlFor="city">Target City</Label>
                       <Input
                         id="city"
                         placeholder="e.g., Mumbai, Delhi, Bangalore"
@@ -135,7 +135,7 @@ const CampaignBuilder = () => {
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="industry">{t("industry")}</Label>
+                      <Label htmlFor="industry">Industry</Label>
                       <Select value={campaignData.industry} onValueChange={(value) => setCampaignData({...campaignData, industry: value})}>
                         <SelectTrigger>
                           <SelectValue placeholder="Select industry" />
@@ -150,7 +150,7 @@ const CampaignBuilder = () => {
                   </div>
 
                   <div className="space-y-2">
-                    <Label htmlFor="company-size">{t("companySize")}</Label>
+                    <Label htmlFor="company-size">Company Size</Label>
                     <Select value={campaignData.companySize} onValueChange={(value) => setCampaignData({...campaignData, companySize: value})}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select company size" />
@@ -214,7 +214,7 @@ const CampaignBuilder = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Mail className="w-5 h-5 mr-2" />
-                    {t("emailTemplate")}
+                    Email Template
                   </CardTitle>
                   <CardDescription>
                     Craft your message with personalization tokens
@@ -248,11 +248,11 @@ Available tokens: {{first_name}}, {{last_name}}, {{company}}, {{city}}, {{role}}
                   </div>
 
                   <div className="flex flex-wrap gap-2">
-                    <Badge variant="outline">{{first_name}}</Badge>
-                    <Badge variant="outline">{{last_name}}</Badge>
-                    <Badge variant="outline">{{company}}</Badge>
-                    <Badge variant="outline">{{city}}</Badge>
-                    <Badge variant="outline">{{role}}</Badge>
+                    <Badge variant="outline">{"{{first_name}}"}</Badge>
+                    <Badge variant="outline">{"{{last_name}}"}</Badge>
+                    <Badge variant="outline">{"{{company}}"}</Badge>
+                    <Badge variant="outline">{"{{city}}"}</Badge>
+                    <Badge variant="outline">{"{{role}}"}</Badge>
                   </div>
                 </CardContent>
               </Card>
@@ -264,7 +264,7 @@ Available tokens: {{first_name}}, {{last_name}}, {{company}}, {{city}}, {{role}}
                 <CardHeader>
                   <CardTitle className="flex items-center">
                     <Calendar className="w-5 h-5 mr-2" />
-                    {t("schedule")}
+                    Schedule
                   </CardTitle>
                   <CardDescription>
                     Configure sending behavior and limits

@@ -176,7 +176,7 @@ const ComplianceCenter = () => {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card className="campaign-card">
           <CardHeader>
-            <CardTitle>{t("complianceChecklist")}</CardTitle>
+            <CardTitle>Compliance Checklist</CardTitle>
             <CardDescription>
               Required and recommended compliance features
             </CardDescription>
