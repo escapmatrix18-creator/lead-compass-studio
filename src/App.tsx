@@ -1,13 +1,9 @@
-import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense } from "react";
 import { motion } from "framer-motion";
 
-// Store
-import { useThemeStore } from "@/store/themeStore";
+// Providers
+import { AppProviders } from "@/components/providers/AppProviders";
 
 // Pages
 import Dashboard from "@/pages/Dashboard";
@@ -24,17 +20,6 @@ import NotFound from "@/pages/NotFound";
 import AppLayout from "@/components/layout/AppLayout";
 import LoadingSpinner from "@/components/ui/LoadingSpinner";
 
-// i18n removed for compatibility
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      retry: 1,
-    },
-  },
-});
-
 const LoadingScreen = () => (
   <div className="min-h-screen bg-gradient-surface flex items-center justify-center">
     <motion.div
@@ -49,36 +34,28 @@ const LoadingScreen = () => (
 );
 
 const App = () => {
-  const { theme } = useThemeStore();
-
   return (
-    <div className={theme}>
-      <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <Suspense fallback={<LoadingScreen />}>
-              <Routes>
-                <Route path="/onboarding" element={<Onboarding />} />
-                <Route path="/" element={<AppLayout />}>
-                  <Route index element={<Dashboard />} />
-                  <Route path="dashboard" element={<Dashboard />} />
-                  <Route path="campaigns/new" element={<CampaignBuilder />} />
-                  <Route path="campaigns/:id/edit" element={<CampaignBuilder />} />
-                  <Route path="leads" element={<LeadManager />} />
-                  <Route path="integrations" element={<Integrations />} />
-                  <Route path="compliance" element={<ComplianceCenter />} />
-                  <Route path="sending" element={<SendingMonitor />} />
-                  <Route path="settings" element={<Settings />} />
-                </Route>
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
-        </TooltipProvider>
-      </QueryClientProvider>
-    </div>
+    <AppProviders>
+      <BrowserRouter>
+        <Suspense fallback={<LoadingScreen />}>
+          <Routes>
+            <Route path="/onboarding" element={<Onboarding />} />
+            <Route path="/" element={<AppLayout />}>
+              <Route index element={<Dashboard />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="campaigns/new" element={<CampaignBuilder />} />
+              <Route path="campaigns/:id/edit" element={<CampaignBuilder />} />
+              <Route path="leads" element={<LeadManager />} />
+              <Route path="integrations" element={<Integrations />} />
+              <Route path="compliance" element={<ComplianceCenter />} />
+              <Route path="sending" element={<SendingMonitor />} />
+              <Route path="settings" element={<Settings />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
+    </AppProviders>
   );
 };
 
