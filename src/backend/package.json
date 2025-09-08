@@ -8,7 +8,7 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "test": "jest",
-    "lint": "eslint src/backend/**/*.ts",
+    "lint": "npx eslint src/backend",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

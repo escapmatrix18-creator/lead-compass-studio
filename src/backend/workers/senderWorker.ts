@@ -3,20 +3,22 @@
  * BullMQ worker for sending emails with quota and consent enforcement
  */
 
-import { Worker, Job } from 'bullmq';
-import IORedis from 'ioredis';
-import { prisma } from '../server';
-import pino from 'pino';
+import { Worker, Job } from "bullmq";
+import IORedis from "ioredis";
+import { prisma } from "../server";
+import pino from "pino";
 
 // Redis connection
-const connection = new IORedis(process.env.REDIS_URL || 'redis://localhost:6379');
+const connection = new IORedis(
+  process.env.REDIS_URL || "redis://localhost:6379",
+);
 
 const logger = pino({
-  level: process.env.LOG_LEVEL || 'info',
+  level: process.env.LOG_LEVEL || "info",
 });
 
 const senderWorker = new Worker(
-  'campaignQueue',
+  "campaignQueue",
   async (job: Job) => {
     const { campaignId } = job.data;
 
@@ -36,7 +38,7 @@ const senderWorker = new Worker(
       return;
     }
 
-    if (campaign.status !== 'active') {
+    if (campaign.status !== "active") {
       logger.info(`Campaign ${campaignId} is not active. Skipping.`);
       return;
     }
@@ -48,10 +50,12 @@ const senderWorker = new Worker(
 
     // Enforce quota
     if (campaign.sender.usedQuota >= campaign.sender.quota) {
-      logger.warn(`Sender quota exceeded for sender ${campaign.sender.email}. Pausing campaign.`);
+      logger.warn(
+        `Sender quota exceeded for sender ${campaign.sender.email}. Pausing campaign.`,
+      );
       await prisma.campaign.update({
         where: { id: campaignId },
-        data: { status: 'paused' },
+        data: { status: "paused" },
       });
       return;
     }
@@ -73,7 +77,7 @@ const senderWorker = new Worker(
       // Log audit
       await prisma.auditLog.create({
         data: {
-          action: 'send',
+          action: "send",
           details: { campaignId, leadId: lead.id, email: lead.email },
           userId: campaign.userId,
         },
@@ -82,14 +86,14 @@ const senderWorker = new Worker(
 
     logger.info(`Completed sending emails for campaign ${campaignId}`);
   },
-  { connection }
+  { connection },
 );
 
-senderWorker.on('completed', (job) => {
+senderWorker.on("completed", (job) => {
   logger.info(`Job ${job.id} has completed`);
 });
 
-senderWorker.on('failed', (job, err) => {
+senderWorker.on("failed", (job, err) => {
   logger.error(`Job ${job?.id} failed with error: ${err.message}`);
 });
 

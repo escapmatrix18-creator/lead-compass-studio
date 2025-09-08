@@ -38,6 +38,7 @@ model Lead {
   consent     Boolean  @default(false) // Compliance: opt-in required
   consentDate DateTime?
   source      String   // e.g., "upload", "integration"
+  sendStatus  String   @default("pending") // pending, sent, failed, suppressed
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -45,6 +46,7 @@ model Lead {
   userId    String
   user      User      @relation(fields: [userId], references: [id])
   campaigns Campaign[]
+  sendJobs  SendJob[]
 
   @@map("leads")
 }
@@ -116,4 +118,43 @@ model Integration {
   user   User   @relation(fields: [userId], references: [id])
 
   @@map("integrations")
+}
+
+model SuppressionList {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  reason    String   // e.g., "bounce", "complaint", "unsubscribe"
+  source    String   // e.g., "provider", "manual"
+  createdAt DateTime @default(now())
+
+  @@map("suppression_list")
+}
+
+model SendJob {
+  id          String   @id @default(cuid())
+  campaignId  String
+  leadId      String
+  status      String   @default("queued") // queued, sent, failed, suppressed
+  provider    String?  // e.g., "gmail", "sendgrid"
+  error       String?
+  sentAt      DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  campaign Campaign @relation(fields: [campaignId], references: [id])
+  lead     Lead     @relation(fields: [leadId], references: [id])
+
+  @@map("send_jobs")
+}
+
+model WebhookEvent {
+  id        String   @id @default(cuid())
+  provider  String   // e.g., "sendgrid", "mailgun"
+  event     String   // e.g., "delivered", "bounce", "complaint"
+  payload   Json
+  processed Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@map("webhook_events")
 }
