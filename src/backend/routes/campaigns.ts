@@ -3,9 +3,9 @@
  * Campaign management routes for Blackbox AI — Campaign Orchestrator
  */
 
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import { prisma, campaignQueue } from '../server';
-import { z } from 'zod';
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import { prisma, campaignQueue } from "../server";
+import { z } from "zod";
 
 // Zod schema for campaign creation
 const createCampaignSchema = z.object({
@@ -18,7 +18,7 @@ const createCampaignSchema = z.object({
   throttling: z
     .object({
       rate: z.number().int().positive(),
-      interval: z.enum(['second', 'minute', 'hour', 'day']),
+      interval: z.enum(["second", "minute", "hour", "day"]),
     })
     .optional(),
 });
@@ -26,16 +26,16 @@ const createCampaignSchema = z.object({
 export default async function campaignsRoutes(fastify: FastifyInstance) {
   // Create a new campaign
   fastify.post(
-    '/',
+    "/",
     {
       schema: {
         body: createCampaignSchema,
         response: {
           201: {
-            type: 'object',
+            type: "object",
             properties: {
-              id: { type: 'string' },
-              message: { type: 'string' },
+              id: { type: "string" },
+              message: { type: "string" },
             },
           },
         },
@@ -45,47 +45,47 @@ export default async function campaignsRoutes(fastify: FastifyInstance) {
       const body = createCampaignSchema.parse(request.body);
 
       // TODO: Add userId from auth context (stubbed here)
-      const userId = 'user-id-placeholder';
+      const userId = "user-id-placeholder";
 
       const campaign = await prisma.campaign.create({
         data: {
           ...body,
           userId,
-          status: 'active',
+          status: "active",
         },
       });
 
       // Enqueue campaign job for processing
-      await campaignQueue.add('campaignJob', { campaignId: campaign.id });
+      await campaignQueue.add("campaignJob", { campaignId: campaign.id });
 
-      reply.code(201).send({ id: campaign.id, message: 'Campaign created' });
-    }
+      reply.code(201).send({ id: campaign.id, message: "Campaign created" });
+    },
   );
 
   // Get campaign status by id
   fastify.get(
-    '/:id/status',
+    "/:id/status",
     {
       schema: {
         params: {
-          type: 'object',
+          type: "object",
           properties: {
-            id: { type: 'string' },
+            id: { type: "string" },
           },
-          required: ['id'],
+          required: ["id"],
         },
         response: {
           200: {
-            type: 'object',
+            type: "object",
             properties: {
-              id: { type: 'string' },
-              status: { type: 'string' },
+              id: { type: "string" },
+              status: { type: "string" },
             },
           },
           404: {
-            type: 'object',
+            type: "object",
             properties: {
-              message: { type: 'string' },
+              message: { type: "string" },
             },
           },
         },
@@ -98,11 +98,11 @@ export default async function campaignsRoutes(fastify: FastifyInstance) {
       });
 
       if (!campaign) {
-        return reply.code(404).send({ message: 'Campaign not found' });
+        return reply.code(404).send({ message: "Campaign not found" });
       }
 
       reply.send({ id: campaign.id, status: campaign.status });
-    }
+    },
   );
 }
 
